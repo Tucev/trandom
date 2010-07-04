@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block body %}
+		<div class="navigation" id="sub-nav">
+
+			<ul class="tabbed">
+				<li class=current-tab><a href=http://localhost:8080/communities?lang=en>About us</a></li>
+				<li><a href='../static/html/editors-en.html'>Editors</a></li>
+				<li><a href='../static/html/developers-en.html'>Developers</li>
+				<li><a href='../static/html/gamespace-en.html'>Game Space</li>
+				<!-- <li><a href={{url_fuckml}}>Bus Drivers</li>-->
+			</ul>
+
+			<div class="clearer">&nbsp;</div>
+
+		</div>
+	<div class="main">
+
+		<div class="section">
+
+			<div class="section-title">Community</div>
+
+			<div class="section-content">
+
+				<div class="post">
+
+					<div class="post-title"><h2><a href="#">What is Cloudyama</a></h2></div>
+
+					<div class="post-date">http://online.cloudyama.com</div>
+
+					<div class="post-body">
+
+						<p class="large">1. The meaning of Cloudyama</p>
+						<p>This site is hosting on <a href="http://code.google.com/appengine/">Google Appengine</a>, which is the cloud computing platform. So we decided to take the "Cloud" from that for we believe that in the future, more website and services will be running in cloud computing platforms.</p>
+						<p>Because of the university of one of our founders is in the mountains in Japan, we took the "mountain". And create the concept of "could and mountain", and also because of mountain in Japanese is "Yama", we made the website called "Cloudyama"</p>
+						<div class="content-separator"></div>
+						<dt><p class="large">2. Our Mission</p></dt>
+						<blockquote>
+							<dd><p>- To express the opinion of our generation</p></dd>
+							<dd><p>- To try to realize 'there is no truth'</p></dd>
+							<dd><p>- To create a 'borderless' community</p></dd>
+							<dd><p>- To promote Open Source spirit</p></dd>
+						</blockquote>
+						<div class="content-separator"></div>
+						<p class="large">3. Our Creed</p>									
+						<dd><p>- Never believe in Media</p></dd>
+						<dd><p>- Always be anti-authoritarianism</p></dd>
+						<dd><p>- Challenge the tradition</p></dd>
+						<dd><p>- Believe in logic</p></dd>
+						<div class="content-separator"></div>
+						<p class="large">4. About the blog</p>
+						<p>We have three editors on the in the website right now, to write blogs.</p>
+						<p>We write about Politics, Technology, Handsome guys and pretty girls and Philosophy</p>
+						<div class="content-separator"></div>
+						<p class="large">5. About the development</p>
+						<p>There is only one Developer now, and if you are interested in developing the Cloudyama CMS on Google Appengine togethter with us, please check the project page on Google Code</p>
+						<div class="content-separator"></div>
+				
+				</div>
+
+	</div>
+{% endblock %}
+{% block tab_community %}
+	class="current-tab"
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "account.html" %}
+{% block createevent %}
+<div id = 'event'>
+<p><label>Create Event</label></p>
+<p><label>Title:</label></p>
+<form action="" method="post" accept-charset="utf-8">
+<p><input type="text" class="text" id="blog-title" name="event_title"></p>
+<p><label>Language:</label></p>
+<p>
+	<select name = 'event_language'>
+	<option value='en'>English</option>
+	<option value='jp'>日本語</option>
+	</select>
+</p>
+<p><label>Body:</label></p>
+<p><textarea cols='90' rows='10' values='' name = 'event_body' id = "command" ></textarea></p>
+<input type="submit" value="Submit" class = "btn1">
+</form>
+</div>
+{% endblock %}

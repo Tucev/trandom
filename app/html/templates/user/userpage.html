@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{{title}}</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../static/css/styles-forum.css"/>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	google.load("jquery", "1.3.2");
+</script>
+<script type="text/javascript" src = {{ script }} ></script>
+</head>
+<div id="header">
+	<div id = 'site-logo-area'>	
+		<img id = 'logo' src="../static/images/cloudyama.jpg"/>
+		<div id = 'slogan'>{{ cloud_info }}
+			<div id = 'title'>{{ cloud_slogan }}</div>
+		</div>	
+	</div>
+	<div id = 'language_area'>
+		{{languages}}
+	</div>
+	<ul>
+		<li>{{user_info}}</li>
+		<li><a href={{url_home}}>{{home}}</a></li>
+		<li><a href={{url_forum}} class="active">{{forum}}</a></li>
+		<li><a href={{url_translate}}>{{translate}}</a></li>
+		<li><a href={{url_fuckml}}>{{fuckml}}</a></li>
+		<li><a href={{url_chat}}>{{chat}}</a></li>
+		<!--<li><a href="http://matthewjamestaylor.com/blog/perfect-full-page.htm">6<span>Full Page</span></a></li>
+		<li><a href="http://matthewjamestaylor.com/blog/perfect-stacked-columns.htm">7<span>columns</span></a></li> -->
+	</ul>
+</div>
+<body>
+<div class="colmask threecol">
+	<div id="forum">
+		<div id ="topic">
+		{% if me %}
+			gender:
+			nickname:
+			{{level}}
+			twitter:
+			facebook:
+			cell:
+			tsubu
+		{% else %}
+			{{gender}}
+			{{nickname}}
+			{{level}}
+			{{twitter}}
+			{{facebook}}
+			{{cell}}
+			{{tsubu}}
+		{% endif %}
+		</div>
+	</div>
+	<div id = "admin">
+		{{url_admin_login}}
+	</div>
+</div>
+</body>
+</html>

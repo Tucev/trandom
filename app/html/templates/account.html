@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block body %}
+		<div class="navigation" id="sub-nav">
+
+			<ul class="tabbed">
+				{% if me %}
+				<li><a href="/users?id={{user_id}}&lang={{lang}}&board=MyAccount">My Account</a></li>
+				{% ifequal level 100 %}
+					<li><a href="/users?id={{user_id}}&lang={{lang}}&board=WriteBlog">Write Blog</a></li>
+				{% endifequal %}
+				{% ifequal level 200 %}
+					<li><a href="/users?id={{user_id}}&lang={{lang}}&board=WriteBlog">Write Blog</a></li>
+					<li><a href="/users?id={{user_id}}&lang={{lang}}&board=CreateEvent">Create Event</a></li>
+				{% endifequal %}
+				<li><a href="/users?id={{user_id}}&lang={{lang}}&board=#">My Resume</a></li>
+				{% else %}
+					<li><a>User Profile</a></li>
+				{% endif %}
+			</ul>
+
+			<div class="clearer">&nbsp;</div>
+
+		</div>
+
+
+	<div class="main" id="main-two-columns">
+
+		<div class="left" id="main-content">
+			{% block myaccount %}{% endblock %}
+			{% block writeblog %}{% endblock %}
+			{% block createevent %}{% endblock %}
+		</div>
+
+		<div class="right sidebar" id="sidebar">
+			{% if me %}
+				<form action="" method="post" accept-charset="utf-8">
+				<p><label>Gender:</label></p>
+				<p><select name = 'gender'>
+					<option value='0'>Female</option>
+					<option value='1'>Male</option>
+					</select></p>
+				<p><label>User Level:</label></p>
+				<p>{{level}}</p>
+				<p><label>Twitter:</label></p>
+				<p><input type="text" class="text" id="input-1" name="twitter"></p>
+				<p><label>Facebook:</label></p>
+				<p><input type="text" class="text" id="input-1" name="facebook"></p>
+				<p><label>Cell:</label></p>
+				<p><input type="text" class="text" id="input-1" name="cell"></p>
+				<input type="submit" value="Submit" class = "btn1">
+				</form>
+			{% else %}
+				<p><label>Gender:</label></p>
+				<p>{{gender}}</p>
+				<p><label>User Level:</label></p>
+				<p>{{level}}</p>
+				<p><label>Twitter:</label></p>
+				<p>{{twitter}}</p>
+				<p><label>Facebook:</label></p>
+				<p>{{facebook}}</p>
+				<p><label>Cell:</label></p>
+				<p>{{cell}}</p>
+			{% endif %}
+		</div>
+		<div class="clearer">&nbsp;</div>
+
+	</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript" src="/static/tiny_mce/tiny_mce.js" ></script>
+<script type="text/javascript">
+tinyMCE.init({
+	// General options
+	mode : "textareas",
+	theme : "advanced",
+	plugins : "safari,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+	// Theme options
+	theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+	theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code",
+	theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+	theme_advanced_buttons4 : "|,styleprops,spellchecker,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+	theme_advanced_toolbar_location : "top",
+	theme_advanced_toolbar_align : "left",
+	theme_advanced_statusbar_location : "bottom",
+	theme_advanced_resizing : true,
+	// Office example CSS
+});
+</script>
+{% endblock %}

@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="navigation" id="sub-nav">
+<ul class="tabbed">
+	{% ifequal topthread.kind_id 0 %}
+	<li><a href={{url_forum}}>{{forum}}</a></li>
+	{% endifequal %}
+	{% ifequal topthread.kind_id 1 %}
+	<li><a href={{url_translate}}>{{translate}}</a></li>
+	{% endifequal %}
+	{% ifequal topthread.kind_id 2 %}
+	<li><a href={{url_fuckml}}>{{fuckml}}</a></li>
+	{% endifequal %}
+	<li class = "current-tab"><a>>> {{topthread.title}} </a></li>	
+</ul>
+<div class="clearer">&nbsp;</div>
+</div>
+<div class="main" id="main-two-columns">
+
+	<div class="left" id="main-content">
+
+		<div id="comments">
+
+			<h3 class="right">
+				<a href=""></a>
+			</h3>
+
+			<div class="comment-list-wrapper">
+
+				<ul class="comment-list">
+					<li class="comment comment-single">
+
+						<div class="comment-profile-wrapper left">
+
+							<div class="comment-profile">				
+								<img src="../static/images/sample-gravatar.gif" width="40" height="40" alt="" />
+								<div class="comment-author"><a href="/users?id={{topthread.author.usr_id}}&lang={{topthread.lang}}&board=MyAccount">{{topthread.author.nickname}}</a></div>
+							</div>
+
+						</div>
+
+						<div class="comment-content-wrapper right">
+							<div class="comment-content-wrapper-2">
+
+								<div class="comment-body">
+								
+									<div class="comment-arrow"></div>
+									
+									<div class="post-date">
+
+										<div class="left">{{topthread.updated|date}} {{topthread.updated|time}} <span class="text-separator">|</span> <a href="#">LZ</a></div>
+										<div class="right"><a href="#comment-51">Topic #{{topthread.topic_id}}</a></div>
+
+										<div class="clearer">&nbsp;</div>
+
+									</div>
+
+									<div class="comment-text">
+										<p>{{topthread.title|striptags}}</p>
+										<p>{{topthread.body|striptags}}</p>
+									</div>					
+
+									<div class="clearer">&nbsp;</div>
+
+								</div>
+							
+							</div>
+						</div>
+
+						<div class="clearer">&nbsp;</div>
+
+					</li>
+					{% for topic in topics %}
+					<li class="comment comment-single">
+
+						<div class="comment-profile-wrapper left">
+
+							<div class="comment-profile">				
+								<img src="../static/images/sample-gravatar.gif" width="40" height="40" alt="" />
+								<div class="comment-author"><a href="/users?id={{topic.author.usr_id}}&lang={{topthread.lang}}&board=MyAccount">{{topic.author.nickname}}</a></div>
+							</div>
+
+						</div>
+
+						<div class="comment-content-wrapper right">
+							<div class="comment-content-wrapper-2">
+
+								<div class="comment-body">
+								
+									<div class="comment-arrow"></div>
+									
+									<div class="post-date">
+
+										<div class="left">{{topic.updated|date}} {{topic.updated|time}} <span class="text-separator">|</span> <a href="/topics?topic_id={{topic.topic_id}}">Read &#187;</a></div>
+										<div class="right"><a href="#comment-51">Topic #{{topic.topic_id}}</a></div>
+
+										<div class="clearer">&nbsp;</div>
+
+									</div>
+
+									<div class="comment-text">
+										<p>{{topic.body|striptags}}</p>
+									</div>					
+
+									<div class="clearer">&nbsp;</div>
+
+								</div>
+							
+							</div>
+						</div>
+
+						<div class="clearer">&nbsp;</div>
+
+					</li>
+					{% endfor %}
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div id="respond">
+			{% if is_user %}
+				<form action="" method="post" accept-charset="utf-8">
+					<textarea class = 'command' id = 'command' name = 'body'></textarea>
+					<p>
+					<input type="submit" value="Submit" class = "btn1">
+					</p>
+				</form>
+			{% else %}
+				<form>
+					<textarea class = 'command' id = 'command' DISABLED></textarea>
+					<p>
+					<input type="submit" value="Please signin to comment" class = "btn1"DISABLED>
+					</p>
+				</form>
+			{% endif %}
+		</div>
+		
+	</div>
+
+	<div class="right sidebar" id="sidebar">
+
+		<div class="section">
+		
+			<div class="section-title">Translate this into Japanese</div>
+
+			<div class="section-content">
+
+				<ul class="nice-list">
+					<li><a href="#">Elem Semper</a> <span class="quiet">- Director</span></li>
+					<li><a href="#">Porttitor Urna</a> <span class="quiet">- Lead Writer</span></li>
+					<li><a href="#">Congue Porttitor</a> <span class="quiet">- Editor</span></li>
+					<li><a href="#">Etiam Blandit</a> <span class="quiet">- Writer</span></li>
+					<li><a href="#">Diet Tesque</a> <span class="quiet">- Writer</span></li>
+				</ul>
+				
+			</div>
+
+		</div>
+
+		<div class="section">
+
+		
+		</div>
+
+	</div>
+
+	<div class="clearer">&nbsp;</div>
+
+</div>
+{% endblock %}
+{% block forum_style %}
+	<link rel="stylesheet" type="text/css" href="../static/css/styles-forum.css"/>
+{% endblock %}
+{% block tab_forum %}
+	class="current-tab"
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="main" id="main-two-columns">
+	{% autoescape off %}
+	{{events.title|default:"イベントは未だにないです|there is no events yet"}}
+	{{events.body|default:"イベントは未だにないです|there is no events yet"}}
+	{{events.updated|default:"イベントは未だにないです|there is no events yet"}}
+	{% endautoescape %}
+</div>
+{% endblock %}

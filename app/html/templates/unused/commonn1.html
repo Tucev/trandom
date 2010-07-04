@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block body %}
+	<div class="navigation" id="sub-nav">
+
+		<ul class="tabbed">
+			<li><a href={{url_forum}}>{{forum}}</a></li>
+			<li><a href={{url_translate}}>{{translate}}</li>
+			<li><a href={{url_fuckml}}>{{fuckml}}</li>
+		</ul>
+
+		<div class="clearer">&nbsp;</div>
+
+	</div>
+
+<div class="main">
+
+	<div class="section">
+
+		<div class="section-title"></div>
+		
+		<div class="section-content">
+				<div id="forum">
+					<div id ="topic">
+						<a>{{ forum_title_text }}<p>{{ forum_time_text }}</p></a>
+						{% for topic in topics %}
+						<a href = '/topics?topic_id={{topic.topic_id}}'>{{topic.title|striptags}}
+							<p>{{topic.author}}<span> | </span>{{topic.updated}}</p>
+						</a>
+						{% endfor %}
+					</div>
+				</div>
+				{% if is_user %}
+					<form action="" method="post" accept-charset="utf-8">
+						<input id = 'input_title' name = 'title' class='text' type='text'/>
+						<textarea class = 'command' id = 'command' name = 'body'></textarea>
+						<p>
+						<input type="submit" value="Submit" class = "btn1">
+						</p>
+					</form>
+				{% else %}
+					<form>
+						<input id = 'input_title' name = 'title' class='text' type='text'DISABLED/>
+						<textarea class = 'command' id = 'command' DISABLED></textarea>
+						<p>
+						<input type="submit" value="Please signin to comment" class = "btn1"DISABLED>
+						</p>
+					</form>
+				{% endif %}
+			<div class="clearer">&nbsp;</div>
+
+		</div>
+
+	</div>
+
+</div>
+{% endblock %}
+{% block forum_style %}
+	<link rel="stylesheet" type="text/css" href="../static/css/styles-forum.css"/>
+{% endblock %}
+{% block tab_forum %}
+	class="current-tab"
+{% endblock %}

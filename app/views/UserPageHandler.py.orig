@@ -1,0 +1,154 @@
+# -*- coding: utf-8 -*-
+#!/usr/bin/env python
+# encoding: utf-8
+#import from google apps engine
+from google.appengine.ext import db
+from google.appengine.ext.db import *
+from google.appengine.ext import webapp
+from google.appengine.ext.webapp import util
+from google.appengine.ext.webapp \
+	import template
+#django
+from django.utils import simplejson as json
+#python library
+import urllib2,time,datetime,urllib,string
+from datetime import datetime
+from datetime import timedelta
+#system and so on
+import sys,os
+import socket
+import string
+#Models
+#then we are going to import something else, and this involves with some nasty stuff
+current_dir = os.path.abspath(os.path.dirname(__file__))
+sys.path = [current_dir] + sys.path
+#finished adding current path to sys.path
+from app import lib
+from app.models import Blog,Topics,Events,Users,Tags
+import tweepy
+#imported my library
+class UserPageHandler(webapp.RequestHandler):
+	def get(self):
+		req_id = str(self.request.get('id'))
+		req_lang = str(self.request.get('lang'))
+		req_board = str(self.request.get('board'))
+		global req_id
+		values = lib.def_title(req_lang)
+		values_usr = lib.def_user(req_id)
+		user = users.get_current_user()
+		me = False
+		if user:
+			query = Users.gql("WHERE usr_id = :1",req_id)
+			row = query.get()
+			if row.usr_id == user.user_id():me = True
+		values.update(values_usr)
+		values['me'] = me
+		values['lang'] = req_lang
+		path = lib.genpath('/html/templates/',req_board + '.htm')
+		self.response.out.write(template.render(path, values))
+	def post(self):
+		auth = tweepy.BasicAuthHandler("cloudyama", "web0909")
+		api = tweepy.API(auth)
+		blog_title = self.request.get('blog_title')
+		blog_body = self.request.get('blog_body')
+		blog_teaser = self.request.get('blog_teaser')
+		blog_tags = self.request.get('blog_tags')		
+		event_title = self.request.get('event_title')
+		event_body = self.request.get('event_body')
+	 	blog_language = self.request.get('blog_language')
+		event_language = self.request.get('event_language')
+		tsubu = self.request.get('tsubu')
+		gender = self.request.get('gender')
+		cell = self.request.get('cell')
+		twitter = self.request.get('twitter')
+		facebook = self.request.get('facebook')
+		user = users.get_current_user()
+		#this part is even becoming confusing for me now. why do I need a sumbit list here.?
+		submit_list = [
+				[blog_title,blog_language,blog_teaser,blog_body,blog_tags],
+				[event_title,event_language,event_body],
+				[tsubu],
+				[gender,cell,twitter,facebook]
+			]
+		for i in range(0,len(submit_list)):
+			lsts = ''.join(submit_list[i])
+			if lsts != '':
+				if i == 0:
+					query = db.GqlQuery('SELECT * FROM Blog WHERE depth = 0 ORDER BY created DESC')
+					row = query.get()
+					new_blg_id = 0
+					if row is not None:new_blg_id = row.blg_id + 1
+					###################
+					##Bloody tags !!!##
+					###################
+					taglst = string.split(blog_tags,',')
+					blog_numbers = 1
+					for tags in taglst:
+						tags = tags.strip()
+						query = Tags.gql('WHERE name = :1', tags)
+						row = query.get()
+						if row is None:
+							tag = Tags(
+								name =  tags,
+								blog_ids = [new_blg_id],
+								blog_numbers = blog_numbers)
+							tag.put()
+						else:
+							row.blog_ids.append(new_blg_id)
+							row.blog_numbers += 1
+							row.put()
+					####################
+					## End of Blood Tags
+					####################
+					query = Users.gql("WHERE usr_id = :1",user.user_id())
+					row = query.get()
+					blog = Blog(
+						blg_id = new_blg_id,
+						author = row,
+						lang = blog_language,
+						title = blog_title,
+						teaser = blog_teaser,
+						body = blog_body,						
+						depth = 0
+						)
+					blog.put()
+					# Not in use when debugging
+					#try:
+						#if blog_language == "en":api.update_status("Just updated on cloudyama:" + blog.title + "http://online.cloudyama.com/blog?id=" + str(new_blg_id) + "&lang=en" + " #fb")
+						#if blog_language == "jp":api.update_status("ただいま雲山より：" + blog.title.encode("utf-8","ignore") + "http://online.cloudyama.com/blog?id=" + str(new_blg_id) + "&lang=jp" + " #fb")
+					#except Exception:
+					#	pass
+					#blog
+				elif i == 1:
+					query = db.GqlQuery('SELECT * FROM Events ORDER BY updated DESC')
+					row = query.get()
+					new_event_id = 0
+					if row is not None:new_event_id = row.event_id + 1	
+					event = Events(
+						event_id = new_event_id,
+						lang = event_language,
+						title = event_title,
+						body = event_body,
+						)
+					event.put()
+					#event
+				elif i == 2:
+					user_query = Users.gql('WHERE usr_id = :1',user.user_id())
+					user_result = user_query.get()
+					user_result.tsubu = db.Text(tsubu)
+					user_result.put()
+					#tsubu
+				elif i == 3:
+					user_query = Users.gql('WHERE usr_id = :1',user.user_id())
+					user_result = user_query.get()
+					user_result.gender = int(gender)
+					user_result.twitter = db.Text(twitter)
+					user_result.cell = db.PhoneNumber(cell)
+					user_result.facebook = db.Text(facebook)
+					user_result.put()
+					#user
+		path = lib.genpath('/html/templates','redirect.html')
+		try:
+			self.response.out.write(template.render(path,''))
+		except	Exception:
+			print "You have an Error"

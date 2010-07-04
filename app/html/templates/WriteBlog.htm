@@ -1,0 +1,26 @@
+{% extends "account.html" %}
+	{% block writeblog %}
+	<div id = 'blog'>
+	<p><label>Write Blog</label></p>
+	<p><label>Title:</label></p>
+	<form action="" method="post" accept-charset="utf-8">
+	<p><input type="text" class="text" id="blog_title" name="blog_title"></p>
+	<p><label>Language:</label></p>
+	<p>
+		<select name = 'blog_language'>
+		<option value='en'>English</option>
+		<option value='jp'>日本語</option>
+		</select>
+	</p>
+	<p><label>Teaser:</label></p>
+	<p><label>Notice: ONLY the teaser will appear on the front page, and the body will not until you click to read the blog.</label></p>
+	<p><textarea values='' name = 'blog_teaser' id = "teaser"></textarea></p>
+	<p><label>Body:</label></p>
+	<p><textarea values='' name = 'blog_body' id = "command"></textarea></p>
+	<p>Tags / タッグ</p>
+	<p>Seperate Tags with Commas, コマでタッグを分けてください</p>
+	<p><input type="text" class="text" name="blog_tags"></p>
+	<input type="submit" value="Submit" class = "btn1">
+	</form>
+	</div>
+{% endblock %}

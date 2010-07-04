@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="navigation" id="sub-nav">
+<ul class="tabbed">
+	<li {% ifequal board "common" %}class="current-tab"{% endifequal %}><a href={{url_forum}}>{{forum}}</a></li>
+	<li {% ifequal board "translation" %}class="current-tab"{% endifequal %}><a href={{url_translate}}>{{translate}}</li>
+	<li {% ifequal board "fml" %}class="current-tab"{% endifequal %}><a href={{url_fuckml}}>{{fuckml}}</li>
+</ul>
+<div class="clearer">&nbsp;</div>
+</div>
+<div class="main" id="main-two-columns">
+
+	<div class="left" id="main-content">
+
+		<div id="comments">
+
+			<h3 class="right">
+				<a href=""></a>
+			</h3>
+
+			<div class="comment-list-wrapper">
+
+				<ul class="comment-list">
+					{% for topic in topics %}
+					<li class="comment comment-single">
+
+						<div class="comment-profile-wrapper left">
+
+							<div class="comment-profile">				
+								<img src="../static/images/sample-gravatar.gif" width="40" height="40" alt="" />
+								<div class="comment-author"><a href="/users?id={{topic.author.usr_id}}&lang={{topic.lang}}&board=MyAccount">{{topic.author.nickname}}</a></div>
+							</div>
+
+						</div>
+
+						<div class="comment-content-wrapper right">
+							<div class="comment-content-wrapper-2">
+
+								<div class="comment-body">
+								
+									<div class="comment-arrow"></div>
+									
+									<div class="post-date">
+
+										<div class="left">{{topic.updated|date}} {{topic.updated|time}} <span class="text-separator">|</span> <a href="/topics?topic_id={{topic.topic_id}}">Read &#187;</a></div>
+										<div class="right"><a href="#comment-51">Topic #{{topic.topic_id}}</a></div>
+
+										<div class="clearer">&nbsp;</div>
+
+									</div>
+
+									<div class="comment-text">
+										<p>{{topic.title|striptags}}</p>
+									</div>					
+
+									<div class="clearer">&nbsp;</div>
+
+								</div>
+							
+							</div>
+						</div>
+
+						<div class="clearer">&nbsp;</div>
+
+					</li>
+					{% endfor %}
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div id="respond">
+			{% if is_user %}
+				<form action="" method="post" accept-charset="utf-8">
+					<input id = 'input_title' name = 'title' class='text' type='text'/>
+					<textarea class = 'command' id = 'command' name = 'body'></textarea>
+					<p>
+					<input type="submit" value="Submit" class = "btn1">
+					</p>
+				</form>
+			{% else %}
+				<form>
+					<textarea class = 'command' id = 'command' DISABLED></textarea>
+					<p>
+					<input type="submit" value="Please signin to comment" class = "btn1"DISABLED>
+					</p>
+				</form>
+			{% endif %}
+		</div>
+		
+	</div>
+
+	<div class="right sidebar" id="sidebar">
+
+		<!-- <div class="section">
+
+			<div class="section-title">Hot Topics</div>
+
+			<div class="section-content">
+
+				<ul class="nice-list">
+					<li>
+					
+					</li>
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div class="section">
+
+			<div class="section-title">Recent Topics</div>
+
+			<div class="section-content">
+
+				<ul class="nice-list">
+					
+				</ul>
+				
+			</div>
+		
+		</div>
+		
+		<div class="section">
+		<div class="section-title">Recent Replies</div>
+		</div>
+
+	</div> -->
+
+	<div class="clearer">&nbsp;</div>
+
+</div>
+
+
+{% endblock %}
+{% block forum_style %}
+	<link rel="stylesheet" type="text/css" href="../static/css/styles-forum.css"/>
+{% endblock %}class="current-tab"
+{% block tab_forum %}
+	class="current-tab"
+{% endblock %}

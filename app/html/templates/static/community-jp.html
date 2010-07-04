@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block body %}
+		<div class="navigation" id="sub-nav">
+
+			<ul class="tabbed">
+				<li class='current-tab'><a href='/communities?lang=jp'>私たちについて</a></li>
+				<li><a href='../static/html/editors-jp.html'>編集者</a></li>
+				<li><a href='../static/html/developers-jp.html'>開発</li>
+				<!--<li><a href=#>運転士</li>-->
+			</ul>
+
+			<div class="clearer">&nbsp;</div>
+
+		</div>
+	<div class="main">
+
+		<div class="section">
+
+			<div class="section-title">コミュニティ</div>
+
+			<div class="section-content">
+
+				<div class="post">
+
+					<div class="post-title"><h2><a href="#">雲山とは</a></h2></div>
+
+					<div class="post-date">http://online.cloudyama.com</div>
+
+					<div class="post-body">
+
+						<p class="large">１、「雲山」の意味</p>
+						<p>このサイトは<a href="http://google.com">グーグル</a><a href="http://code.google.com/appengine/">APPENGINE</a>でホスチングしている。Google Appengineは「<a href="http://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0">クラウドコンピューティング</a>」というですから、その「クラウト」をとりました。そして、うちの大学は日本の山にあるから、サイトの名前は「雲山」になりました。</p>
+						<div class="content-separator"></div>
+						<dt><p class="large">２、私たちの使命</p></dt>
+						<blockquote>
+							<dd><p>我々の世代の意見を表現する</p></dd>
+							<dd><p>「真実はない」事を思い知る</p></dd>
+							<dd><p>国境ないコミュニティを作る</p></dd>
+							<dd><p>オープンソースの精神を宣伝する</p></dd>
+						</blockquote>
+						<div class="content-separator"></div>
+						<p class="large">３、私たちの信条</p>									
+						<dd><p>ー　メディアを信じない</p></dd>
+						<dd><p>ー　権威を反対する</p></dd>
+						<dd><p>ー　伝統を挑戦する</p></dd>
+						<dd><p>ー　ロジックを信じる</p></dd>
+						<div class="content-separator"></div>
+						<p class="large">４、ブログについて</p>
+						<p>いま、雲山のブログは「政治」、「技術」、「イケメン・可愛い子」、「哲学」について書きます。ブログの編集者は三人がいます。</p>
+						<div class="content-separator"></div>
+						<p class="large">５、開発について</p>
+						<p>開発はいままで一人です、参加したかったら、プロジャクトページへどうぞ</p>
+						<div class="content-separator"></div>
+
+					</div>
+				
+				</div>
+
+	</div>
+{% endblock %}
+{% block tab_community %}
+	class="current-tab"
+{% endblock %}

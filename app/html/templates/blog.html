@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="main" id="main-two-columns">
+
+	<div class="left" id="main-content">
+
+		<div class="post">
+			
+			<div class="post-title"><h1>{{blog.title}}</h1></div>
+
+			<div class="post-date">{{blog.created|date}} {{blog.created|time}} by {{blog.author.nickname}}</div>
+
+			<div class="post-body">
+				{% autoescape off %}
+				{{blog.teaser}}
+				{{blog.body}}
+				{% endautoescape %}
+			</div>
+		
+		</div>
+
+		<div id="comments">
+
+			<div class="left">
+				<h2>Comments</h2>
+			</div>
+
+			<h3 class="right">
+				<a href="#respond">Leave a reply &#187;</a>
+			</h3>
+
+			<div class="clearer">&nbsp;</div>
+
+			<div class="comment-list-wrapper">
+
+				<ul class="comment-list">
+				<a name="fb_share" type="button_count" share_url="http://online.cloudyama.com/blog?id={{blog.blg_id}}&lang={{blog.lang}}" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+{% for reply in replys %}
+
+	<li class="comment comment-single" id="comment-51">
+
+		<div class="comment-profile-wrapper left">
+
+			<div class="comment-profile">				
+				<img src="../static/images/sample-gravatar.gif" width="40" height="40" alt="" />
+				<div class="comment-author"><a href="/users?id={{reply.author.usr_id}}&lang={{blog.lang}}&board=MyAccount">{{reply.author.nickname}}</a></div>
+			</div>
+
+		</div>
+
+		<div class="comment-content-wrapper right">
+			<div class="comment-content-wrapper-2">
+
+				<div class="comment-body">
+				
+					<div class="comment-arrow"></div>
+					
+					<div class="post-date">
+
+						<div class="left">{{reply.created|date}} {{reply.created|time}} <span class="text-separator">|</span> <a href="#">Reply &#187;</a></div>
+						<div class="right"><a href="#comment-51">{{reply.id}}</a></div>
+
+						<div class="clearer">&nbsp;</div>
+
+					</div>
+
+					<div class="comment-text">
+						<p>{{reply.body}}</p>
+					</div>
+					<div class="clearer">&nbsp;</div>
+				</div>
+			
+			</div>
+		</div>
+
+		<div class="clearer">&nbsp;</div>
+
+	</li>
+	
+{% endfor %}
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div id="respond">
+
+			<form action="" method="post" id="reply">
+
+				<fieldset>
+					<div class="form_row">						
+						<div class="form_property form_required">
+							コメント / Comments
+						</div>
+						<div class="form_value"><textarea rows="10" cols="46" name="comment" class="command" id = "command"></textarea></div>
+						<div class="clearer">&nbsp;</div>
+					</div>
+					<div class="form_row form_row_submit">
+						<div class="form_value"><input type="submit" class="button" value="    OK!    " /></div>
+
+						<div class="clearer">&nbsp;</div>
+
+					</div>
+				
+				</fieldset>
+
+			</form>
+
+		</div>
+		
+	</div>
+
+	<div class="right sidebar" id="sidebar">
+
+		<!-- <div class="section">
+
+			<div class="section-title">Search</div>
+
+			<div class="section-content">
+				<form method="post" action="">
+					<input type="text" class="text" size="28" /> &nbsp; <input type="submit" class="button" value="Submit" />
+				</form>
+			</div>
+
+		</div> -->
+
+		<div class="section">
+
+			<div class="section-title">Recent Entries</div>
+
+			<div class="section-content">
+
+				<ul class="nice-list">
+					{% for blog_ttl in blog_ttls %}
+					<li>
+						<div class="left"><a href="/blog?id={{blog.blg_id}}&lang={{blog.lang}}">{{blog_ttl.title}}</a></div>
+						<div class="right">{{blog_ttl.created|date}}</div>
+						<div class="clearer">&nbsp;</div>
+					</li>
+					{% endfor %}
+					<li><a href="#" class="more">Browse Archives &#187;</a></li>
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div class="section">
+
+			<div class="section-title">Board of Members</div>
+
+		</div>
+
+		<div class="section">
+
+			<div class="section-title">Topics</div>
+
+			<div class="section-content">
+
+			</div>
+		
+		</div>
+
+	</div>
+
+	<div class="clearer">&nbsp;</div>
+
+</div>
+{% endblock %}

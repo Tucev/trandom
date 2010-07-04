@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="main" id="main-two-columns">
+
+	<div class="left" id="main-content">
+				<h1>Archives for {{tag}}</h1>
+
+			<div class="archive-pagination archive-pagination-top">
+					
+				<div class="left"><a href="#">« Previous page</a></div>
+				<div class="right"><a href="#">Next page »</a></div>
+
+				<div class="clearer">&nbsp;</div>
+				
+			</div>
+			{% for blog in blogs%}
+			<div class="post">
+
+				<div class="archive-post-date">
+					<div class="archive-post-day">{{blog.created|date:"d"}}</div>
+					<div class="archive-post-month">{{blog.created|date:"M"|upper}}</div>
+				</div>
+
+				<div class="archive-post-title">
+					<h3><a href="/blog?id={{blog.blg_id}}&lang={{blog.lang}}">{{blog.title}}</a></h3>
+					<div class="post-date">{{blog.created|time}} {{blog.created|date}} in {{tag}}</div>
+				</div>
+
+				<div class="clearer">&nbsp;</div>
+
+			</div>
+
+			<div class="archive-separator"></div>
+			{% endfor %}
+
+			<div class="archive-pagination archive-pagination-bottom">
+				
+				<div class="left"><a href="#">« Previous page</a></div>
+				<div class="right"><a href="#">Next page »</a></div>
+
+				<div class="clearer">&nbsp;</div>
+				
+			</div>
+			
+	</div>
+	<div class="right sidebar" id="sidebar">
+
+		<!-- <div class="section">
+
+			<div class="section-title">Search</div>
+
+			<div class="section-content">
+				<form method="post" action="">
+					<input type="text" class="text" size="28" /> &nbsp; <input type="submit" class="button" value="Submit" />
+				</form>
+			</div>
+
+		</div> -->
+
+		<div class="section">
+
+			<div class="section-title">Archive</div>
+
+			<div class="section-content">
+
+			</div>
+
+		</div>
+
+
+	</div>
+
+	<div class="clearer">&nbsp;</div>
+
+</div>
+{% endblock %}

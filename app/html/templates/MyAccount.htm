@@ -1,0 +1,15 @@
+{% extends "account.html" %}
+{% block myaccount %}
+	{% if me %}
+		<h2>{{nickname}}:</h2>
+		<form action="" method="post" accept-charset="utf-8">
+		<textarea cols='90' rows='4' values='' name = 'tsubu' id = "command"></textarea>
+		<input type="submit" value="Submit" class = "btn1">
+		</form>
+	{% else %}
+		<h2>{{nickname}}:</h2>
+		<blockquote>
+			{{tsubu}}
+		</blockquote>
+	{% endif %}
+{% endblock %}

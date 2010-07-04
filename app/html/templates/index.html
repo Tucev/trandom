@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+{% block body%}
+<div id="splash">
+
+	<div class="col3 left">
+		
+		<h2 class="label label-green">{{cloud_info}}</h2>
+
+		<p class="quiet large">{{cloud_slogan}}</p>
+		{% autoescape off %}
+		{{mission_statement}}
+		{% endautoescape %}
+		<p><a href={{url_community}} class="more">{{community}}&raquo;</a></p>
+		<br></br>
+		<a href="http://twitter.com/cloudyama" target="_blank"> <img src="../static/images/twitter-icon.png" height = "35" border="0" alt="Photo of a big bunny rabbit!" /></a>
+		<a href="http://www.facebook.com/pages/Cloudyama-Foreigner-Community-In-Japan/117498958283211" target="_blank"> <img src="../static/images/facebook-icon.png" height = "35" border="0" alt="Photo of a big bunny rabbit!" /></a>
+		<a href="http://code.google.com/p/cloudyama-gae/" target="_blank"> <img src="../static/images/code.png" height = "30" border="0" alt="Photo of a big bunny rabbit!" /></a>
+		<a href="http://www.flickr.com/photos/50957140@N03/" target="_blank"> <img src="../static/images/flickr.png" height = "35" border="0" alt="Photo of a big bunny rabbit!" /></a>
+		<a href="http://www.youtube.com/user/Cloudyama" target="_blank"> <img src="../static/images/youtube.png" height = "35" border="0" alt="Photo of a big bunny rabbit!" /></a>
+	</div>
+
+	<div class="col3-mid left">
+		
+		<h2 class="label label-orange">{{event}}</h2>
+		{{events.title|default:"No Event Yet"}}
+		<p class="quiet large"></p>
+
+	</div>
+
+	<div class="col3 right">		
+		<h2 class="label label-blue"><a href="http://twitter.com/cloudyama">{{twitter}}</a></h2>
+		<p class="quiet large"><a href="http://twitter.com/cloudyama">http://twitter.com/cloudyama</a></p>
+		<div class='tweet'></div>
+	</div>
+
+	<div class="clearer">&nbsp;</div>
+
+</div>
+
+<div class="main" id="main-two-columns">
+
+	<div class="left" id="main-content">
+
+		<div class="section">
+
+			<div class="section-title"></div>
+
+			<div class="section-content">
+				{% for blog in blogs %}
+				<div class="post">
+
+					<div class="post-title"><h2><a href="/blog?id={{blog.blg_id}}&lang={{blog.lang}}">{{blog.title}}</a></h2></div>
+					<p><a name="fb_share" type="box_count" share_url="http://online.cloudyama.com/blog?id={{blog.blg_id}}&lang={{blog.lang}}" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script></p>{% for tag in blog.tags %}{% ifequal tag "Game Space" %}<a href = "/static/html/gamespace-en.html"><img src="../static/images/gamespace.jpg"/></a>{% endifequal %}{% endfor %}
+					<div class="post-date">&nbsp;&nbsp;{{blog.created|time}} {{blog.created|date}} by {{blog.author.nickname}}</div>
+					<div class="post-body">
+						{% autoescape off %}
+						{{blog.teaser}}
+						{% endautoescape %}
+						<p><a href="/blog?id={{blog.blg_id}}&lang={{blog.lang}}" class="more">{{comment}} &#187;</a></p>
+						{% for tag in blog.tags %}{{tag}}{% endfor %}
+						<div class="clearer">&nbsp;</div>
+						<div class="content-separator"></div>
+					</div>
+				
+				</div>
+				{% endfor %}
+
+				<!-- <div class="content-separator"></div>
+
+							<div class="col3 left">
+								<div class="column-content">
+
+									<div class="post">
+										<h3><a href="#">Article title</a></h3>
+										<p>Integer diam elit, condi mentum ac semper ut, tincidunt non diam. Ut congue at commodo aenean euismod tincidunt lorem euismod.</p>
+										<a href="#" class="more">Read more &#187;</a>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col3 col3-mid left">
+								<div class="column-content">
+
+									<div class="post">
+										<h3><a href="#">Second Article Title</a></h3>
+										<p>Sed congue lacinia leo, sed dignissim odio pharetra vel. Fusce a dignissim dui. Fusce semper porttitor enim dapibus venenatis.</p>
+										<a href="#" class="more">Read more &#187;</a>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col3 right">
+								<div class="column-content">
+
+									<div class="post">
+										<h3><a href="#">Third title</a></h3>
+										<p>Sed auctor hendrerit eros eu eleifend. Cras hendrerit iaculis sodales. Pellentesque interdum rhoncus magna.</p>
+										<a href="#" class="more">Read more &#187;</a>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="clearer">&nbsp;</div> -->
+			
+			</div>
+
+		</div>
+
+		<div class="clearer">&nbsp;</div>
+		
+	</div>
+
+	<div class="right sidebar" id="sidebar">
+		<div class="section">
+			<div class="section-title">Tags / タッグ</div>
+			<div class="section-content">
+				<div class = "quiets">
+					{% for tag in tags %}
+						<a style = "background-color:#{{tag.blog_numbers}}00000;color:white;" href="/archive?tag={{tag.name}}">{{tag.name}}</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="section">
+
+			<div class="section-title">Recent Entries</div>
+
+			<div class="section-content">
+
+				<ul class="nice-list">
+					{% for blog in blogs %}
+					<li>
+						<div class="left"><a href="/blog?id={{blog.blg_id}}&lang={{blog.lang}}">{{blog.title}}</a></div>
+						<div class="right">{{blog.created|date}}</div>
+						<div class="clearer">&nbsp;</div>
+
+					</li>
+					{% endfor %}
+					<li><a href="/archive?tag=,{{lang}}" class="more">Browse Archives &#187;</a></li>
+				</ul>
+
+			</div>
+
+		</div>
+		<div class="section">
+
+			<div class="section-title">{{translation}}</div>
+
+			<div class="section-content">
+
+				<ul class="nice-list">
+					{% for translation_head in translation_heads %}
+					<li><a href='/topics?topic_id={{translation_head.topic_id}}'>{{translation_head.title|striptags}}</a> 
+					<p><span class="quiet">{{translation_head.updated|date}} {{translation_head.updated|time}}</span></li></p>
+					{% endfor %}
+				</ul>
+				
+			</div>
+
+		</div>
+		
+		<div class="section">
+
+			<div class="section-title">{{fml}}</div>
+
+			<div class="section-content">
+				<ul class="nice-list">
+					{% for fml_head in fml_heads %}
+						<li><a href='/topics?topic_id={{fml_head.topic_id|default:"#"}}'>{{fml_head.title|striptags}}</a> 
+						<p><span class="quiet">{{ fml_head.updated|date }} {{ fml_head.updated|time }}</span></li></pRecent Entries
+>
+					{% endfor %}
+				</ul>					
+			</div>
+
+		</div>
+
+	</div>
+	
+
+	<div class="clearer">&nbsp;</div>
+</div>
+
+{% endblock %}
+
+{% block tab_home %}
+class="current-tab"
+{% endblock %}
+
+{% block script %}
+<script language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js" type="text/javascript"></script>
+<script language="javascript" src="/static/js/jquery.tweet.js" type="text/javascript"></script>
+<script type='text/javascript'>
+  jQuery(document).ready(function($) {
+    $(".tweet").tweet({
+      join_text: "auto",
+      username: "cloudyama",
+      avatar_size: 48,
+      count: 5,
+      auto_join_text_default: "we said,", 
+      auto_join_text_ed: "we",
+      auto_join_text_ing: "we were",
+      auto_join_text_reply: "we replied",
+      auto_join_text_url: "we were checking out",
+      loading_text: "loading tweets..."
+    });
+    $("#query").tweet({
+      avatar_size: 32,
+      count: 4,
+      query: "tweet.seaofclouds.com",
+      loading_text: "searching twitter..."
+    });
+    $("#userandquery").tweet({
+      count: 3,
+      query: "from:seaofclouds&phrase=http",
+      loading_text: "searching twitter..."
+    });
+    $("#fromtwo").tweet({
+      avatar_size: 32,
+      count: 4,
+      query: "from%3Aseaofclouds+OR+from%3Alaughingsquid",
+      loading_text: "searching twitter..."
+    });
+    $("#list").tweet({
+      avatar_size: 32,
+      count: 4,
+      username: "laughingsquid",
+      list: "rackers",
+      loading_text: "loading list..."
+    });
+  })      
+</script>
+{% endblock %}
